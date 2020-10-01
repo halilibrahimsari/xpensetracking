@@ -12,12 +12,11 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "Customer")
-public class Customer {
+@Table (name = "Category")
+public class Category {
 
     @Id
-    private long id;
-    private long name;
-    private long lastName;
+    private int id;
 
+    private String type;
 }
