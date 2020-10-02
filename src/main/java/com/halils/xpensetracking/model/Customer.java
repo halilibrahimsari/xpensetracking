@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "Customer")
+@Table (name = "customer")
 public class Customer {
 
     @Id
@@ -20,4 +20,6 @@ public class Customer {
     private long name;
     private long lastName;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Expense> expense = new ArrayList<>();
 }
