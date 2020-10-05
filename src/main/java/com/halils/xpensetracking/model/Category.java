@@ -16,10 +16,11 @@ import java.util.List;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "type")
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Expense> expense = new ArrayList<>();
 }
