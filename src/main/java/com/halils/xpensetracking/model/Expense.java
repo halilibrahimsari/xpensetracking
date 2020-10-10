@@ -1,5 +1,6 @@
 package com.halils.xpensetracking.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,19 +17,24 @@ import java.time.LocalDate;
 public class Expense {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "expense_id")
+    private long expenseId;
 
-    @Column(name = "transaction_date")
+    @Column(name = "expense_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate transactionDate;
+    private LocalDate expenseDate;
 
     @Column(name = "company")
     private String company;
 
     @Column(name = "amount")
     private Double amount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    @JsonBackReference
+    private Customer customer;
 
 
 }
