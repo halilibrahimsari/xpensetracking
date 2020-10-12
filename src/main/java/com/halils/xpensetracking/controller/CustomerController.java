@@ -1,12 +1,12 @@
 package com.halils.xpensetracking.controller;
 
+import com.halils.xpensetracking.dto.CustomerDto;
 import com.halils.xpensetracking.model.Customer;
 import com.halils.xpensetracking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CustomerController {
@@ -15,17 +15,17 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping(value = "/customers")
-    public List<Customer> getAllCustomers() {
+    public List<CustomerDto> getAllCustomers() {
         return customerService.findAllCustomers();
     }
 
     @PostMapping(value = "/customers/add")
-    public Customer addCustomer(@RequestBody Customer customer) {
-        return customerService.addCustomer(customer);
+    public CustomerDto addCustomer(@RequestBody CustomerDto customerDto) {
+        return customerService.addCustomer(customerDto);
     }
 
     @GetMapping(value = "/customer/{id}")
-    public Optional<Customer> getCustomerById(@PathVariable long id) {
+    public CustomerDto getCustomerById(@PathVariable long id) {
         return customerService.findCustomerById(id);
     }
 
@@ -35,8 +35,8 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/customer/{id}")
-    public void updateCustomerById(@PathVariable long id, @RequestBody Customer customer) {
-        customerService.updateCustomerById(id, customer);
+    public CustomerDto updateCustomerById(@PathVariable long id, @RequestBody CustomerDto customer) {
+        return customerService.updateCustomerById(id, customer);
     }
 
 

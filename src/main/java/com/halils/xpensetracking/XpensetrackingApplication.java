@@ -8,6 +8,8 @@ public class XpensetrackingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(XpensetrackingApplication.class, args);
+
+		
 	}
 
 }

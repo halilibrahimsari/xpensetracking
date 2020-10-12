@@ -1,14 +1,13 @@
 package com.halils.xpensetracking.service;
 
-import com.halils.xpensetracking.model.Category;
+import com.halils.xpensetracking.dto.CustomerDto;
 import com.halils.xpensetracking.model.Customer;
 import com.halils.xpensetracking.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -16,31 +15,29 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Customer addCustomer (Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDto addCustomer(CustomerDto customerDto) {
+        Customer result = customerRepository.save(customerDto.toEntity());
+        return new CustomerDto(result);
     }
 
-    public List<Customer> findAllCustomers (){
-        return customerRepository.findAll();
+    public List<CustomerDto> findAllCustomers() {
+        return customerRepository.findAll().stream().map(CustomerDto::new).collect(Collectors.toList());
     }
 
-    public Optional<Customer> findCustomerById(long id){
-        return customerRepository.findById(id);
+    public CustomerDto findCustomerById(long id) {
+        return customerRepository.findById(id).map(CustomerDto::new).orElseThrow();
     }
 
-    public void deleteCustomerById (long id){
+    public void deleteCustomerById(long id) {
         customerRepository.deleteById(id);
     }
 
-    public void updateCustomerById(long id, Customer customer) {
-        if (customerRepository.findById(id).isPresent()) {
-            Customer updatedCustomer = customerRepository.findById(id).get();
-
-            updatedCustomer.setFirstName(customer.getFirstName());
-            updatedCustomer.setLastName(customer.getLastName());
-            customerRepository.save(updatedCustomer);
-        } else {
-            System.out.println("Couldn't find customer with this ID");
-        }
+    public CustomerDto updateCustomerById(long id, CustomerDto customer) {
+        Customer replaced = customerRepository.findById(id).map(x -> {
+            x.setFirstName(customer.getFirstName());
+            x.setLastName(customer.getLastName());
+            return customerRepository.save(x);
+        }).orElseThrow();
+        return new CustomerDto(replaced);
     }
 }

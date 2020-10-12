@@ -27,7 +27,7 @@ public class Customer {
     @Column(name = "lastname")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
