@@ -3,18 +3,15 @@ package com.halils.xpensetracking.dto;
 import com.halils.xpensetracking.model.Customer;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CustomerDto {
 
-    private final long id;
+    private final Long id;
     private final String firstName;
     private final String lastName;
-
-    public CustomerDto(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    private List<ExpenseDto> expenses;
 
     public CustomerDto(Customer customer){
         this.id = customer.getCustomerId();

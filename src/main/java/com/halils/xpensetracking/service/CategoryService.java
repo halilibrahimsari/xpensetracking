@@ -14,7 +14,7 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public List<Category> allCategories() {
+    public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
@@ -26,8 +26,9 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public Optional<Category> findCategoryById(int id) {
-        return categoryRepository.findById(id);
+    public Category findCategoryById(int id) {
+        Category category = categoryRepository.findById(id).orElseThrow();
+        return category;
     }
 
     public void updateCategory(int id, Category category) {

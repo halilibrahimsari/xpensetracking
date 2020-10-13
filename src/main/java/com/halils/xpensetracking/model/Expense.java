@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,6 +32,11 @@ public class Expense {
 
     @Column(name = "amount")
     private Double amount;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)

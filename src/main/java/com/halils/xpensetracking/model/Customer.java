@@ -31,14 +31,4 @@ public class Customer {
     @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
-        expense.setCustomer(this);
-    }
-
-    public void removeExpense(Expense expense) {
-        expenses.remove(expense);
-        expense.setCustomer(null);
-    }
-
 }
